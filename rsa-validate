@@ -20,8 +20,8 @@ def main(keyFile, mFile, sigFile):
     n = string.rstrip(f.readline(), "\n")
     n = int(n)
     
-    d = string.rstrip(f.readline(), "\n")
-    d = int(d)
+    e = string.rstrip(f.readline(), "\n")
+    e = int(e)
     
     f.close()
 
@@ -33,20 +33,32 @@ def main(keyFile, mFile, sigFile):
     f.close()
 
     ###########################################
-    #Encrypt#
-    
+    #Hash#
+
     hashval = hashlib.sha256(m).hexdigest()
 
-    presig = int(hashval, 16)
+    hashval_int = int(hashval, 16)
+    print "this = " + str(hashval_int)
 
-    sig = pow(presig, d, n)
-    
     ###########################################
-    #Write result to file#
+    #Read value to compare to#
     
-    f = open(sigFile, 'w')
-    f.write(str(sig))
+    f = open(sigFile, 'r')
+    comp = string.rstrip(f.readline(), "\n")
     f.close()
+
+    comp_int = int(comp)
+
+    comp_sig = pow(comp_int, e, n)
+    print "that = " + str(comp_sig)
+
+    ###########################################
+    #Compare#
+
+    if(hashval_int == comp_sig):
+        print "True"
+    else:
+        print "False"
 
     ###########################################
 

@@ -5,7 +5,6 @@ import sys
 import os
 import random
 import binascii
-import hashlib
 
 ################################################
 
@@ -40,7 +39,7 @@ def modinv(a, m):
 
 ################################################
 
-def main(pubFile, privFile, nBits, caFile):
+def main(pubFile, privFile, nBits):
     p = number.getPrime(int(nBits))
     q = number.getPrime(int(nBits))
     while q == p:
@@ -78,8 +77,7 @@ if __name__ == "__main__":
     parser.add_argument("--p", help="Public key file", required=True)
     parser.add_argument("--s", help="Private key file", required=True)
     parser.add_argument("--n", help="Number of bits in N", required=True)
-    parser.add_argument("--c", help="CA key file", required=True)
     args = parser.parse_args()
 
-    main(args.p, args.s, args.n, args.c)
+    main(args.p, args.s, args.n)
 
