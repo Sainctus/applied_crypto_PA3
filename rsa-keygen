@@ -86,13 +86,15 @@ def main(pubFile, privFile, nBits):
         ca_n = n
         ca_d = d
 
-    tmp = str(ca_nBits) + str(ca_n) + str(ca_d)
+    tmp = str(nBits) + str(n) + str(e)
     sig = hashlib.sha256(tmp).hexdigest()
+    sig = int(sig, 16)
+    sig = pow(sig, ca_d, ca_n)
 
     sigfile = pubFile + "-casig"
 
     f = open(sigfile, 'w')
-    f.write(sig)
+    f.write(str(sig))
     f.close()
 
 ################################################
